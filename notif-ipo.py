@@ -1,12 +1,10 @@
-from dotenv import load_dotenv
 from pprint import pprint
 from datetime import datetime, timedelta
 import requests
 import re
 import os
 
-# 環境変数の読み込み
-load_dotenv()
+# GitHub Actionsの環境変数からAPIキーとWebhook URLを取得
 api_key = os.getenv("EDINET_API_KEY")
 slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 
@@ -61,11 +59,6 @@ def get_reports_for_today():
         print(f"APIリクエストに失敗しました。ステータスコード: {response.status_code}")
 
     # 結果を表示
-    # if reports:
-    #     pprint(reports)
-    # else:
-    #     print(f"{today.strftime('%Y-%m-%d')} には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。")
-
     if reports:
         message = f"{today.strftime('%Y-%m-%d')} の新規公開（IPO）に関する有価証券報告書:\n"
         for report in reports:
