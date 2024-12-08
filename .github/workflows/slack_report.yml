@@ -25,6 +25,9 @@ jobs:
       - name: Debug Environment Variables
         run: echo "SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}" | cut -c1-20
 
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - name: Checkout code
         uses: actions/checkout@v3
 
