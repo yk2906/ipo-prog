@@ -55,18 +55,18 @@ def get_reports_for_today():
     }
 
     # デバッグ用ログ出力
-    print(f"API URL: {url}")
-    print(f"Request Headers: {headers}")
-    print(f"Request Params: {params}")
+    # print(f"API URL: {url}")
+    # print(f"Request Headers: {headers}")
+    # print(f"Request Params: {params}")
 
     try:
         # APIリクエスト
         response = requests.get(url, params=params, headers=headers)
 
         # レスポンス内容をデバッグ出力
-        print(f"Response Status Code: {response.status_code}")
-        print(f"Response Headers: {response.headers}")
-        print(f"Response Content: {response.text}")
+        # print(f"Response Status Code: {response.status_code}")
+        # print(f"Response Headers: {response.headers}")
+        # print(f"Response Content: {response.text}")
 
         # エラー時の処理
         if response.status_code != 200:
