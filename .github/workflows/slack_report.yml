@@ -16,12 +16,11 @@ jobs:
       name: notif-ipo
     env:
       EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 
     steps:
       - name: Print environment variables for debugging
         run: |
-          echo ${{ env.EDINET_API_KEY }} | base64
           echo ${{ env.SLACK_WEBHOOK_URL }} | base64
 
       - name: Checkout code
