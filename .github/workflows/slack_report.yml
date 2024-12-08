@@ -22,7 +22,7 @@ jobs:
       - name: Print environment variables for debugging
         run: |
           echo ${{ env.EDINET_API_KEY }} | base64
-          echo ${{ env.SLACK_WEBHOOK_URL }} base64
+          echo ${{ env.SLACK_WEBHOOK_URL }} | base64
 
       - name: Checkout code
         uses: actions/checkout@v3
