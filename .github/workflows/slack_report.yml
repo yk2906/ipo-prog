@@ -12,6 +12,8 @@ on:
 jobs:
   send_reports:
     runs-on: ubuntu-22.04
+    environment:
+      name: notif-ipo
     env:
       EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
