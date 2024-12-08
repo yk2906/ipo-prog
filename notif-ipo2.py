@@ -34,6 +34,7 @@ def get_reports_for_today():
     params = {
         'date': today.strftime('%Y-%m-%d'),  # YYYY-MM-DD形式
         'type': 2,  # 有価証券報告書
+        'Subscription-Key': api_key
     }
     headers = {
         'Subscription-Key': api_key

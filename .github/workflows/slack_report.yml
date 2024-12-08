@@ -19,9 +19,9 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     steps:
-      - name: Print environment variables for debugging
-        run: |
-          echo ${{ env.SLACK_WEBHOOK_URL }} | base64
+      # - name: Print environment variables for debugging
+      #   run: |
+      #     echo ${{ env.SLACK_WEBHOOK_URL }} | base64
 
       - name: Checkout code
         uses: actions/checkout@v3
