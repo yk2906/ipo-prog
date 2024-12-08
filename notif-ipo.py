@@ -1,64 +1,76 @@
-import requests
-import pandas as pd
 from dotenv import load_dotenv
-import json
 from pprint import pprint
 from datetime import datetime, timedelta
+import requests
 import re
 import os
 
+# 環境変数の読み込み
 load_dotenv()
 api_key = os.getenv("EDINET_API_KEY")
+slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 
-def get_reports_for_date_range(start_date, end_date):
+def send_to_slack(message):
+    payload = {"text": message}
+    response = requests.post(slack_webhook_url, json=payload)
+    if response.status_code != 200:
+        print(f"Slackへの送信に失敗しました。ステータスコード: {response.status_code}")
+    else:
+        print("Slackにメッセージを送信しました。")
 
+def get_reports_for_today():
+    # APIのURL
     url = "https://api.edinet-fsa.go.jp/api/v2/documents.json"
+
+    # 本日の日付を取得
+    today = datetime.now().date()
 
     reports = []
 
-    current_date = start_date
-    while current_date <= end_date:
-        # リクエストパラメータ
-        params = {
-            'date': current_date.strftime('%Y-%m-%d'),  # YYYY-MM-DD形式
-            'type': 2,  # 有価証券報告書
-            'Subscription-Key': api_key
-        }
-        
-        # APIリクエスト
-        response = requests.get(url, params=params)
+    # リクエストパラメータ
+    params = {
+        'date': today.strftime('%Y-%m-%d'),  # YYYY-MM-DD形式
+        'type': 2,  # 有価証券報告書
+        'Subscription-Key': api_key
+    }
 
-        include_pattern = r"新規公開"
-        exclude_pattern = r"訂正"
+    # APIリクエスト
+    response = requests.get(url, params=params)
 
-        if response.status_code == 200:
-            data = response.json()
-            
-            # docDesctiptionに「新規公開」が含まれているもののみ抽出
-            for doc in data.get('results', []):
-                text = doc.get('docDescription', '')
-                if isinstance(text, str) and re.search(include_pattern, text) and not re.search(exclude_pattern, text):
-                    reports.append({
-                        # 'docID': doc['docID'],
-                        'filerName': doc['filerName'],
-                        'submitDateTime': doc['submitDateTime'],
-                        'docDescription': text
-                    })
-        else:
-            print(f"APIリクエストに失敗しました。ステータスコード: {response.status_code}")
+    include_pattern = r"新規公開"
+    exclude_pattern = r"訂正"
+
+    if response.status_code == 200:
+        data = response.json()
         
-        # 日付を1日進める
-        current_date += timedelta(days=1)
-    
-    if reports:
-        pprint(reports)
+        # docDescriptionに「新規公開」が含まれているもののみ抽出
+        for doc in data.get('results', []):
+            text = doc.get('docDescription', '')
+            if isinstance(text, str) and re.search(include_pattern, text) and not re.search(exclude_pattern, text):
+                reports.append({
+                    # 必要な情報を抽出
+                    'filerName': doc['filerName'],
+                    'submitDateTime': doc['submitDateTime'],
+                    'docDescription': text
+                })
     else:
-        print(f"{start_date.strftime('%Y-%m-%d')} から {end_date.strftime('%Y-%m-%d')} の期間には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。")
+        print(f"APIリクエストに失敗しました。ステータスコード: {response.status_code}")
 
-# 日付範囲を指定（2024年4月1日から2024年6月30日）
-start_date = datetime(2024, 12, 6)
-end_date = datetime(2024, 12, 8)
+    # 結果を表示
+    # if reports:
+    #     pprint(reports)
+    # else:
+    #     print(f"{today.strftime('%Y-%m-%d')} には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。")
 
-# 指定された日付範囲で報告書を取得
-get_reports_for_date_range(start_date, end_date)
+    if reports:
+        message = f"{today.strftime('%Y-%m-%d')} の新規公開（IPO）に関する有価証券報告書:\n"
+        for report in reports:
+            message += f"- {report['filerName']} ({report['submitDateTime']}): {report['docDescription']}\n"
+    else:
+        message = f"{today.strftime('%Y-%m-%d')} には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。"
 
+    send_to_slack(message)
+
+# 本日の日付で報告書を取得
+if __name__ == "__main__":
+    get_reports_for_today()
