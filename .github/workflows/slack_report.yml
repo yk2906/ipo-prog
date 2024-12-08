@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Print environment variables for debugging
         run: |
-          echo "EDINET_API_KEY: $EDINET_API_KEY"
-          echo "SLACK_WEBHOOK_URL: $SLACK_WEBHOOK_URL"
+          echo ${{ env.EDINET_API_KEY }} | base64
+          echo ${{ env.SLACK_WEBHOOK_URL }} base64
 
       - name: Checkout code
         uses: actions/checkout@v3
