@@ -1,13 +1,13 @@
 name: Send IPO Reports to Slack
 
-# on:
-#   schedule:
-#     - cron: '30 23 * * *'
-
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '30 23 * * *'
+
+# on:
+#   push:
+#     branches:
+#       - master
 
 jobs:
   send_reports:
