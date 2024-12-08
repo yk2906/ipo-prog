@@ -7,7 +7,7 @@ name: Send IPO Reports to Slack
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   send_reports:
