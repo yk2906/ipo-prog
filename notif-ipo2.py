@@ -7,8 +7,8 @@ import logging
 import http.client
 
 # デバッグログを有効化
-http.client.HTTPConnection.debuglevel = 1  # HTTPリクエスト/レスポンスの詳細を出力
-logging.basicConfig(level=logging.DEBUG)
+# http.client.HTTPConnection.debuglevel = 1  # HTTPリクエスト/レスポンスの詳細を出力
+# logging.basicConfig(level=logging.DEBUG)
 
 # 環境変数からAPIキーとWebhook URLを取得
 api_key = os.getenv("EDINET_API_KEY")

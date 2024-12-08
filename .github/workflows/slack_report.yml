@@ -31,13 +31,13 @@ jobs:
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Debug SLACK_WEBHOOK_URL
-        run: |
-          echo "Constructed URL: ${SLACK_WEBHOOK_PART1}${SLACK_WEBHOOK_PART2}${SLACK_WEBHOOK_PART3}"
-        env:
-          SLACK_WEBHOOK_PART1: ${{ secrets.SLACK_WEBHOOK_PART1 }}
-          SLACK_WEBHOOK_PART2: ${{ secrets.SLACK_WEBHOOK_PART2 }}
-          SLACK_WEBHOOK_PART3: ${{ secrets.SLACK_WEBHOOK_PART3 }}
+      # - name: Debug SLACK_WEBHOOK_URL
+      #   run: |
+      #     echo "Constructed URL: ${SLACK_WEBHOOK_PART1}${SLACK_WEBHOOK_PART2}${SLACK_WEBHOOK_PART3}"
+      #   env:
+      #     SLACK_WEBHOOK_PART1: ${{ secrets.SLACK_WEBHOOK_PART1 }}
+      #     SLACK_WEBHOOK_PART2: ${{ secrets.SLACK_WEBHOOK_PART2 }}
+      #     SLACK_WEBHOOK_PART3: ${{ secrets.SLACK_WEBHOOK_PART3 }}
 
       - name: Checkout code
         uses: actions/checkout@v3
