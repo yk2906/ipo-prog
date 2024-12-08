@@ -106,6 +106,6 @@ def get_reports_for_today():
 
 # 本日の日付で報告書を取得
 if __name__ == "__main__":
-    print(f"Using EDINET_API_KEY: {api_key[:4]}*** (hidden for security)")
-    print(f"Using SLACK_WEBHOOK_URL: {slack_webhook_url[:8]}*** (hidden for security)")
+    # print(f"Using EDINET_API_KEY: {api_key[:4]}*** (hidden for security)")
+    # print(f"Using SLACK_WEBHOOK_URL: {slack_webhook_url[:8]}*** (hidden for security)")
     get_reports_for_today()
