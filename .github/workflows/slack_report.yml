@@ -17,6 +17,11 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     steps:
+      - name: Print environment variables for debugging
+        run: |
+          echo "EDINET_API_KEY: $EDINET_API_KEY"
+          echo "SLACK_WEBHOOK_URL: $SLACK_WEBHOOK_URL"
+
       - name: Checkout code
         uses: actions/checkout@v3
 
