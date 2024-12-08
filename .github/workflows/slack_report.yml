@@ -23,7 +23,8 @@ jobs:
       #   run: |
       #     echo ${{ env.SLACK_WEBHOOK_URL }} | base64
       - name: Debug Environment Variables
-        run: echo "SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}" | cut -c1-20
+        run: echo "SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}" | cut -c1-50
+
 
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
