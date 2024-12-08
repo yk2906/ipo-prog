@@ -61,33 +61,4 @@ end_date = datetime(2024, 12, 8)
 
 # 指定された日付範囲で報告書を取得
 get_reports_for_date_range(start_date, end_date)
-#     while current_date <= end_date:
-
-#         params = {
-#             'date': current_date.strftime('%Y-%m-%d'),
-#             'type': 2,
-#             "Subscription-Key": api_key
-#         }
-#         raw_response = requests.get(url, params=params)
-
-#         if raw_response.status_code == 200:
-#             data = raw_response.json()
-#         else:
-#             print(f"APIリクエストに失敗しました。ステータスコード： {raw_response.status_code}")
-#         current_date += timedelta(days=1)
-#     print(reports)
-
-# start_date = datetime(2024, 4, 1)
-# end_date = datetime(2024, 6, 30)
-
-# get_reports_for_date_range(start_date, end_date)
-# data = json.dumps(json_response, indent=4, ensure_ascii=False)
-# print(data["filerName"])
-# print(json_response)
-
-# documents = json_response['results']
-# df = pd.DataFrame(documents)
-# pd.set_option("display.max_rows", None)
-# df_filtered = df[['filerName', 'docDescription']]
-# print(df_filtered)
 
