@@ -34,8 +34,12 @@ def get_reports_for_today():
         'Subscription-Key': api_key
     }
 
+    headers = {
+        'Subscription-Key': api_key
+    }
+
     # APIリクエスト
-    response = requests.get(url, params=params)
+    response = requests.get(url, params=params, headers=headers)
 
     include_pattern = r"新規公開"
     exclude_pattern = r"訂正"
