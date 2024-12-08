@@ -12,6 +12,9 @@ on:
 jobs:
   send_reports:
     runs-on: ubuntu-22.04
+    env:
+      EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     steps:
       - name: Checkout code
@@ -28,7 +31,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run the script
-        env:
-          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: python notif-ipo.py
