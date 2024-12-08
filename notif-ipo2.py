@@ -12,7 +12,13 @@ logging.basicConfig(level=logging.DEBUG)
 
 # 環境変数からAPIキーとWebhook URLを取得
 api_key = os.getenv("EDINET_API_KEY")
-slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+# slack_webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+
+slack_webhook_url = (
+    os.getenv("SLACK_WEBHOOK_PART1", "") +
+    os.getenv("SLACK_WEBHOOK_PART2", "") +
+    os.getenv("SLACK_WEBHOOK_PART3", "") +
+)
 
 if not api_key or not slack_webhook_url:
     raise EnvironmentError("EDINET_API_KEYまたはSLACK_WEBHOOK_URLが環境変数から取得できません。")

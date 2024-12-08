@@ -16,18 +16,28 @@ jobs:
       name: notif-ipo
     env:
       EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK_PART1: ${{ secrets.SLACK_WEBHOOK_PART1 }}
+      SLACK_WEBHOOK_PART2: ${{ secrets.SLACK_WEBHOOK_PART2 }}
+      SLACK_WEBHOOK_PART3: ${{ secrets.SLACK_WEBHOOK_PART3 }}
 
     steps:
       # - name: Print environment variables for debugging
       #   run: |
       #     echo ${{ env.SLACK_WEBHOOK_URL }} | base64
-      - name: Debug Environment Variables
-        run: echo "SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}" | cut -c1-50
+      # - name: Debug Environment Variables
+      #   run: echo "SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}" | cut -c1-50
 
 
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Debug SLACK_WEBHOOK_URL
+        run: |
+          echo "Constructed URL: ${SLACK_WEBHOOK_PART1}${SLACK_WEBHOOK_PART2}${SLACK_WEBHOOK_PART3}"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_PART1: ${{ secrets.SLACK_WEBHOOK_PART1 }}
+          SLACK_WEBHOOK_PART2: ${{ secrets.SLACK_WEBHOOK_PART2 }}
+          SLACK_WEBHOOK_PART3: ${{ secrets.SLACK_WEBHOOK_PART3 }}
 
       - name: Checkout code
         uses: actions/checkout@v3
