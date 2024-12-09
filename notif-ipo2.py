@@ -1,5 +1,5 @@
 from pprint import pprint
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 import re
 import os
@@ -44,6 +44,7 @@ def get_reports_for_today():
 
     # 本日の日付を取得
     today = datetime.now().date()
+    tomorrow = today + timedelta(days=1)
 
     # リクエストパラメータとヘッダー
     params = {
@@ -93,11 +94,11 @@ def get_reports_for_today():
 
         # Slack送信用メッセージを作成
         if reports:
-            message = f"{today.strftime('%Y-%m-%d')} の新規公開（IPO）に関する有価証券報告書:\n"
+            message = f"{tomorrow.strftime('%Y-%m-%d')} の新規公開（IPO）に関する有価証券報告書:\n"
             for report in reports:
                 message += f"- {report['filerName']} ({report['submitDateTime']}): {report['docDescription']}\n"
         else:
-            message = f"{today.strftime('%Y-%m-%d')} には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。"
+            message = f"{tomorrow.strftime('%Y-%m-%d')} には新規公開（IPO）に関する有価証券報告書が見つかりませんでした。"
 
         send_to_slack(message)
 
